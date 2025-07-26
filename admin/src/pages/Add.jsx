@@ -71,12 +71,11 @@ const Add = () => {
       });
 
       if (response.data.success) {
-        toast.success(" Product added successfully!");
+        toast.success("✅ Product added successfully!");
       } else {
-        toast.error(" Failed to add product!");
+        toast.error("❌ Failed to add product!");
       }
 
-      // Reset form
       setProduct({
         name: '',
         description: '',
@@ -96,14 +95,16 @@ const Add = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-5 max-w-3xl mx-auto">
+    <form onSubmit={handleSubmit} className="p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">🛒 Add New Product</h2>
+
       <div className="mb-6">
-        <p className='text-gray-700 font-medium py-3'>Upload Images</p>
-        <div className='flex gap-3 flex-wrap'>
+        <label className="block text-gray-700 font-medium mb-2">Upload Images</label>
+        <div className="flex gap-4 flex-wrap">
           {[0, 1, 2, 3].map((index) => (
             <label key={index} htmlFor={`image${index}`}>
               <img
-                className='w-20 h-20 object-cover cursor-pointer border border-gray-300 rounded'
+                className="w-24 h-24 object-cover border rounded cursor-pointer hover:ring-2 hover:ring-blue-400 transition"
                 src={imagePreviews[index] || assets.upload_area}
                 alt={`Upload ${index + 1}`}
               />
@@ -119,61 +120,67 @@ const Add = () => {
         </div>
       </div>
 
-      <input
-        type="text"
-        placeholder="Product Name"
-        className="w-full border p-2 rounded mb-4"
-        value={product.name}
-        onChange={(e) => setProduct({ ...product, name: e.target.value })}
-        required
-      />
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Product Name"
+          className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          value={product.name}
+          onChange={(e) => setProduct({ ...product, name: e.target.value })}
+          required
+        />
+      </div>
 
-      <textarea
-        placeholder="Product Description"
-        className="w-full border p-2 rounded mb-4 h-24"
-        value={product.description}
-        onChange={(e) => setProduct({ ...product, description: e.target.value })}
-        required
-      />
+      <div className="mb-4">
+        <textarea
+          placeholder="Product Description"
+          className="w-full border p-3 rounded-lg h-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          value={product.description}
+          onChange={(e) => setProduct({ ...product, description: e.target.value })}
+          required
+        ></textarea>
+      </div>
 
       <div className="flex gap-4 mb-4">
         <input
           type="text"
-          placeholder="Product Category"
-          className="w-full border p-2 rounded"
+          placeholder="Category"
+          className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={product.category}
           onChange={(e) => setProduct({ ...product, category: e.target.value })}
         />
         <input
           type="text"
           placeholder="Sub Category"
-          className="w-full border p-2 rounded"
+          className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={product.subCategory}
           onChange={(e) => setProduct({ ...product, subCategory: e.target.value })}
         />
       </div>
 
-      <input
-        type="number"
-        placeholder="Product Price"
-        className="w-full border p-2 rounded mb-4"
-        value={product.price}
-        onChange={(e) => setProduct({ ...product, price: e.target.value })}
-        required
-      />
+      <div className="mb-4">
+        <input
+          type="number"
+          placeholder="Price"
+          className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          value={product.price}
+          onChange={(e) => setProduct({ ...product, price: e.target.value })}
+          required
+        />
+      </div>
 
       <div className="mb-4">
-        <p className="mb-2 font-medium">Product Sizes:</p>
-        <div className="flex gap-4 flex-wrap">
+        <label className="font-medium text-gray-700">Available Sizes:</label>
+        <div className="flex gap-4 flex-wrap mt-2">
           {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
-            <label key={size} className="flex items-center gap-1">
+            <label key={size} className="flex items-center gap-1 text-sm">
               <input
                 type="checkbox"
                 value={size}
                 checked={product.sizes.includes(size)}
                 onChange={() => handleSizeChange(size)}
               />
-              {size}
+              <span>{size}</span>
             </label>
           ))}
         </div>
@@ -187,14 +194,14 @@ const Add = () => {
             setProduct({ ...product, bestseller: !product.bestseller })
           }
         />
-        <label>Add to Bestseller</label>
+        <label className="text-sm">Mark as Bestseller</label>
       </div>
 
       <button
         type="submit"
-        className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
+        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
       >
-        ADD
+        ➕ Add Product
       </button>
     </form>
   );

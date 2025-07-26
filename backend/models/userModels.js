@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
-const userSchema=new mongoose.Schema({
-    name:{type:String,required:true},
-    email:{type:String,required:true,unique:true},
-    password:{type:String,required:true,unique:true},
-cartData:{type:Object,default:{}}
-},{minimize:false})
-const userModel =mongoose.model.user||mongoose.model('user',userSchema)
-export default userModel
+
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, unique: true },
+    cartData: { type: Object, default: {} },
+  },
+  { minimize: false }
+);
+
+// ✅ Correct model declaration with caching
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+export default User;
